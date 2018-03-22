@@ -1,6 +1,7 @@
 package com.baidu.controller;
 
 import com.baidu.model.ConCallable;
+import com.baidu.model.PropertiesTest;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.*;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class ThreadController {
 
     @RequestMapping(value = "test1",method = RequestMethod.GET)
     public String test1(){
-
+        ExecutorService executorService = null;
         try {
             //10万条数据
             List<String> list = new ArrayList<>();
@@ -48,20 +49,21 @@ public class ThreadController {
             // 线程计数器
             final CountDownLatch countDownLatch =  new CountDownLatch(count);
             // 初始化一个定长线程池对象
-            ExecutorService executorService = Executors.newFixedThreadPool(8);
+            executorService = Executors.newFixedThreadPool(8);
             // 监听线程池
             ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(executorService);
 
             while (countNum<list.size()){
                 countNum += size;
                 ConCallable callable = new ConCallable();
-                //截取list的数据，分给不同线程处理
+                //截取list(分成400份)的数据，分给不同线程处理
                 callable.setList(ImmutableList.copyOf(list.subList(countNum - size,countNum < list.size() ? countNum : list.size())));
                 ListenableFuture listenableFuture = listeningExecutorService.submit(callable);
                 Futures.addCallback(listenableFuture, new FutureCallback<List<String>>() {
                     @Override
                     public void onSuccess(List<String> list1) {
                         countDownLatch.countDown();
+                        // list1为返回值
                         list2.addAll(list1);
                     }
 
@@ -78,9 +80,41 @@ public class ThreadController {
             logger.info("回调函数："+list2.toString());
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            // 关闭资源
+            executorService.shutdown();
         }
 
         return "正在处理......";
+    }
+
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        List<String> list3 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("集合一数据:"+i);
+        }
+        // 复制list的全部数据
+        list3.addAll(list);
+        PropertiesTest propertiesTest = new PropertiesTest();
+        propertiesTest.setList2(ImmutableList.copyOf(list.subList(0,list.size()-2)));
+        List<String> list2 = propertiesTest.getList2();
+
+        for (int i = 0; i <list.size() ; i++) {
+            System.out.println(list.get(i));
+
+        }
+        System.out.println("================================================");
+
+        for (int i = 0; i <list2.size() ; i++) {
+            System.out.println(list2.get(i));
+        }
+
+        System.out.println("================================================");
+
+        for (int i = 0; i <list3.size() ; i++) {
+            System.out.println(list3.get(i));
+        }
     }
 
 }

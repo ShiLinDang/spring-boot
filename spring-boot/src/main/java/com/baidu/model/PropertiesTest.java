@@ -3,6 +3,8 @@ package com.baidu.model;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by dangsl on 2018/3/21.
  */
@@ -28,6 +30,8 @@ public class PropertiesTest {
 
     @Value("${value6}")
     private String bTest2;
+
+    private List<String> list2;
 
     public String getTmallId() {
         return tmallId;
@@ -83,5 +87,13 @@ public class PropertiesTest {
 
     public void setbTest2(String bTest2) {
         this.bTest2 = bTest2;
+    }
+
+    public List<String> getList2() {
+        return list2;
+    }
+
+    public void setList2(List<String> list2) {
+        this.list2 = list2;
     }
 }
