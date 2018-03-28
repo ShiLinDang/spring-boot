@@ -2,7 +2,6 @@ package com.baidu.controller;
 
 import com.baidu.entity.User;
 import com.baidu.service.UserService;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
