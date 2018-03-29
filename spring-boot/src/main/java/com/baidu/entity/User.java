@@ -12,17 +12,17 @@ public class User implements Serializable{
     private static final long serialVersionUID = -1658171344290937389L;
     // id
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",nullable = false)
     private String id;
     // 姓名
-    @Column(name = "name")
+    @Column(name = "name",nullable = true)
     private String name;
     // 电话
-    @Column(name = "mobile")
+    @Column(name = "mobile",nullable = true)
     private String mobile;
     // 昵称
-    @Column(name = "nick_name")
+    @Column(name = "nick_name",nullable = true)
     private String nickName;
 
     public String getId() {

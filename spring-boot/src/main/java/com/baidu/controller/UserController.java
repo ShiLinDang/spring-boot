@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping(value = "getUserName",method = RequestMethod.GET)
     public String getUser(String id){
         User user = userService.getUser(id);
-        return "欢迎我们可爱的:";
+        return "欢迎我们可爱的:"+user.getName();
     }
 
 }
