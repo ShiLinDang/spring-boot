@@ -27,4 +27,10 @@ public class UserController {
         return nickName;
     }
 
+    @RequestMapping(value = "getUserName",method = RequestMethod.GET)
+    public String getUser(String id){
+        User user = userService.getUser(id);
+        return "欢迎我们可爱的:";
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.baidu.service.impl;
 
 import com.baidu.dao.UserDao;
+import com.baidu.dao.UserRepository;
 import com.baidu.entity.User;
 import com.baidu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,17 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<User> getUserList() {
         List<User> userList = userDao.getUserList();
         return userList;
+    }
+
+    @Override
+    public User getUser(String id) {
+        return userRepository.findById(id);
     }
 }
