@@ -1,6 +1,7 @@
 package com.baidu.controller;
 
 import com.baidu.config.MqConfig;
+import com.baidu.entity.User;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,11 @@ public class WebController {
     public void testMq() throws InterruptedException {
         System.out.println("Sending message...");
         rabbitTemplate.convertAndSend(MqConfig.queueName, "Hello from RabbitMQ!");
+    }
+
+    @RequestMapping(value = "testParam",method = RequestMethod.GET)
+    public void testParam(User user) {
+        System.out.println(user.getName());
     }
 
 }
