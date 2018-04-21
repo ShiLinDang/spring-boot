@@ -11,6 +11,13 @@ import java.io.Serializable;
 public class Receiver implements Serializable{
 
     public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">");
+        try {
+            for (int i = 0; i < 10; i++) {
+                System.out.println("Received <" + message + ">");
+                Thread.sleep(3000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
