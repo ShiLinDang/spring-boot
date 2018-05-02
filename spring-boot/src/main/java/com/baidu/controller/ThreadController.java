@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-/**
+/**多线程,线程池使用类
  * Created by Mypc on 2018/3/21 0021.
  */
 

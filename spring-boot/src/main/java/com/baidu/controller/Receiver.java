@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
-/**
+/**Mq结束消息的类
  * Created by dangsl on 2018/4/12.
  */
 @Component

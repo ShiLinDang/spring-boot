@@ -18,7 +18,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
-/**
+/**生成二维码
  * Created by dangsl on 2018/4/21.
  */
 @RequestMapping("image")

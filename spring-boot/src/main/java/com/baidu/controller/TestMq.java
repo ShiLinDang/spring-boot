@@ -1,6 +1,6 @@
 package com.baidu.controller;
 
-/**
+/**Mq测试类
  * Created by dangsl on 2018/4/12.
  */
 //@Component

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * SpirngBoot的异步任务
  * Created by dangsl on 2018/3/21.
  */
 @EnableAsync

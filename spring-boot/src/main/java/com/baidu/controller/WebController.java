@@ -1,7 +1,5 @@
 package com.baidu.controller;
 
-import com.baidu.config.MqConfig;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("web")
 public class WebController {
 
-    private  RabbitTemplate rabbitTemplate;
-    private  Receiver receiver;
+//    private  RabbitTemplate rabbitTemplate;
+//    private  Receiver receiver;
 
 
-    public WebController(RabbitTemplate rabbitTemplate, Receiver receiver) {
-        this.rabbitTemplate = rabbitTemplate;
-        this.receiver = receiver;
-    }
+//    public WebController(RabbitTemplate rabbitTemplate, Receiver receiver) {
+//        this.rabbitTemplate = rabbitTemplate;
+//        this.receiver = receiver;
+//    }
 
     @RequestMapping(value = "jspIndex",method = RequestMethod.GET)
     public String jspIndex(){
@@ -30,11 +28,11 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = "testMq",method = RequestMethod.GET)
-    public String testMq() throws InterruptedException {
-        System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend(MqConfig.queueName, "Hello from RabbitMQ!");
-        System.out.println("===========================================");
-        return "Sending message...";
-    }
+//    @RequestMapping(value = "testMq",method = RequestMethod.GET)
+//    public String testMq() throws InterruptedException {
+//        System.out.println("Sending message...");
+//        rabbitTemplate.convertAndSend(MqConfig.queueName, "Hello from RabbitMQ!");
+//        System.out.println("===========================================");
+//        return "Sending message...";
+//    }
 }

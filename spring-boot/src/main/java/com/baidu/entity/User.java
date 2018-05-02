@@ -25,6 +25,11 @@ public class User implements Serializable{
     @Column(name = "nick_name",nullable = true)
     private String nickName;
 
+    // 分数
+    private Integer score;
+    // 尺码
+    private Integer size;
+
     public String getId() {
         return id;
     }
@@ -55,5 +60,21 @@ public class User implements Serializable{
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }
