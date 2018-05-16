@@ -129,7 +129,7 @@ public class UserController {
 
                 @Override
                 public void onSuccess(List<User> result) {
-                    // 成功
+                    // 成功(处理后续逻辑)
                     arrayList.addAll(result);
                     System.out.println("====================="+result.size());
                     System.out.println("====================="+arrayList.size());
