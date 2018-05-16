@@ -77,6 +77,7 @@ public class ThreadController {
             }
             countDownLatch.await(30, TimeUnit.MINUTES);
             logger.info("符合条件的返回数据个数为："+list2.size());
+            System.out.println("符合条件的返回数据个数为："+list2.size());
             logger.info("回调函数："+list2.toString());
         } catch (Exception e) {
             e.printStackTrace();

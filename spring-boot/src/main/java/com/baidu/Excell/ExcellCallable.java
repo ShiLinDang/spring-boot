@@ -20,13 +20,13 @@ public class ExcellCallable implements Callable{
 
     @Override
     public Object call() throws Exception {
+        List<User> userList = new ArrayList<>();
         // 获取文件流对象
         InputStream stream = new FileInputStream("C:\\Users\\54505\\Desktop\\原系统数据\\古真健康-用户.xls");
         // 获取Excel工作薄对象
         Workbook workbookFactory = WorkbookFactory.create(stream);
         // 获取所有的sheet页数量
         int numberOfSheets = workbookFactory.getNumberOfSheets();
-        List<User> userList = new ArrayList<>();
         for (int i = 0;i<numberOfSheets;i++){
             Sheet sheet = workbookFactory.getSheetAt(i);
             // 除去表头
