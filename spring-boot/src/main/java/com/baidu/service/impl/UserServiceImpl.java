@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService{
     public User getUser(String id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public void insertUsers(List<User> list) {
+
+    }
 }

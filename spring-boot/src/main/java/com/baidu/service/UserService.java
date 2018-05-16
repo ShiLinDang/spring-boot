@@ -20,4 +20,10 @@ public interface UserService {
      * @return
      */
     User getUser(String id);
+
+    /**
+     * 批量插入用户信息
+     * @param list
+     */
+    void insertUsers(List<User> list);
 }
