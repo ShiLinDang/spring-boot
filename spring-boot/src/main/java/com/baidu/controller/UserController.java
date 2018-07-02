@@ -32,6 +32,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 测试用类
+     * @return
+     */
     @RequestMapping(value = "testUser",method = RequestMethod.GET)
     public String getNickName(){
         List<User> userList = userService.getUserList();
