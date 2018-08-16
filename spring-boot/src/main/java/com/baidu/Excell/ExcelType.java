@@ -1,0 +1,10 @@
+package com.baidu.Excell;
+
+/**
+ * 定义excel格式
+ * @author Niu Li
+ * @since 2017/3/17
+ */
+public enum ExcelType {
+  XLS, XLSX;
+}

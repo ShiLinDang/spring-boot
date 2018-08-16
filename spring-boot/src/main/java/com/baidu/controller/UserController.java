@@ -1,5 +1,9 @@
 package com.baidu.controller;
 
+import cn.hutool.json.JSONUtil;
+import com.baidu.Excell.Demo;
+import com.baidu.Excell.ExcelFormat;
+import com.baidu.Excell.ExcelType;
 import com.baidu.Excell.ExcellCallable;
 import com.baidu.entity.User;
 import com.baidu.service.UserService;
@@ -8,19 +12,25 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mypc on 2018/3/26 0026.
@@ -28,6 +38,8 @@ import java.util.concurrent.Executors;
 @RequestMapping("user")
 @RestController
 public class UserController {
+
+    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     @Autowired
     private UserService userService;
@@ -44,6 +56,48 @@ public class UserController {
     public String getUser(String id){
         User user = userService.getUser(id);
         return "欢迎我们可爱的:"+user.getName();
+    }
+
+    @GetMapping("showName")
+    public String showName(String id){
+        User user = userService.getUser(id);
+        executor.schedule(()->printName(user),2,TimeUnit.MINUTES);
+        return "哈哈,你好呀:"+user.getName();
+    }
+
+    @GetMapping("showExcell")
+    public void showExcell(){
+        LinkedHashMap<String,String> headers = new LinkedHashMap<>();
+        headers.put("username","用户名");
+        headers.put("passWord", "密码");
+        List<Demo> content = new ArrayList<>();
+        Demo demo1 = new Demo("1","1");
+        Demo demo2 = new Demo("2","2");
+        Demo demo3 = new Demo("3","3");
+        Demo demo4 = new Demo("4","4");
+        content.add(demo1);
+        content.add(demo2);
+        content.add(demo3);
+        content.add(demo4);
+
+        //写入
+        ExcelFormat.from(headers,content)
+                .excelType(ExcelType.XLS)
+                .build("niuli")
+                .write("文件.xls");
+        System.out.println("写入成功");
+    }
+
+     public void printName(User user){
+        System.out.println("***********************************************************************");
+        System.out.println(JSONUtil.toJsonStr(user));
+        System.out.println("***********************************************************************");
+    }
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    @Scheduled(fixedRate = 100000)
+    public void printTime(){
+        logger.info("定时任务，展示现在时间："+System.currentTimeMillis());
     }
 
     @RequestMapping(value = "readExcell",method = RequestMethod.GET)
@@ -146,5 +200,29 @@ public class UserController {
             // 关闭资源
             executorService.shutdown();
         }
+    }
+
+    public static void main(String[] args) {
+        List<User> list = new ArrayList<>();
+
+        User user = new User();
+        user.setName("李白");
+
+        User user2 = new User();
+        user2.setScore(700);
+
+        User user3 = new User();
+        user3.setName("李四");
+
+        list.add(user);
+        list.add(user2);
+        list.add(user3);
+
+        Integer collect = list.stream().filter(e->e.getScore() != null).collect(Collectors.summingInt(User::getScore));
+        System.out.println(collect);
+
+        List<String> collect1 = list.stream().filter(e->e.getName() != null).map(User::getName).collect(Collectors.toList());
+        System.out.println(collect1);
+
     }
 }

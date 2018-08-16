@@ -15,11 +15,11 @@ import java.util.List;
  */
 @Component
 public class LimitTimeController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    @Scheduled(fixedRate = 100000)
-    public void printTime(){
-        logger.info("定时任务，现在时间："+System.currentTimeMillis());
-    }
+//    private final Logger logger = LoggerFactory.getLogger(getClass());
+//    @Scheduled(fixedRate = 100000)
+//    public void printTime(){
+//        logger.info("定时任务，现在时间："+System.currentTimeMillis());
+//    }
 
     public static void main(String[] args) {
         List<User> userList = new ArrayList<>();
