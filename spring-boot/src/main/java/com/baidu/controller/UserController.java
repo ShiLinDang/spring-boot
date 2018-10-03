@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -201,28 +203,45 @@ public class UserController {
             executorService.shutdown();
         }
     }
+//
+//    public static void main(String[] args) {
+//        List<User> list = new ArrayList<>();
+//
+//        User user = new User();
+//        user.setName("李白");
+//
+//        User user2 = new User();
+//        user2.setScore(700);
+//
+//        User user3 = new User();
+//        user3.setName("李四");
+//
+//        list.add(user);
+//        list.add(user2);
+//        list.add(user3);
+//
+//        Integer collect = list.stream().filter(e->e.getScore() != null).collect(Collectors.summingInt(User::getScore));
+//        System.out.println(collect);
+//
+//        List<String> collect1 = list.stream().filter(e->e.getName() != null).map(User::getName).collect(Collectors.toList());
+//        System.out.println(collect1);
+//
+//    }
 
     public static void main(String[] args) {
-        List<User> list = new ArrayList<>();
-
-        User user = new User();
-        user.setName("李白");
-
-        User user2 = new User();
-        user2.setScore(700);
-
-        User user3 = new User();
-        user3.setName("李四");
-
-        list.add(user);
-        list.add(user2);
-        list.add(user3);
-
-        Integer collect = list.stream().filter(e->e.getScore() != null).collect(Collectors.summingInt(User::getScore));
-        System.out.println(collect);
-
-        List<String> collect1 = list.stream().filter(e->e.getName() != null).map(User::getName).collect(Collectors.toList());
-        System.out.println(collect1);
-
+        try {
+//            User user = null;
+//            if (null == user){
+//                System.out.println("******************为空");
+//            }
+//            Assert.notNull(user,"对象不能为空");
+            List<User> users = null;
+            if (CollectionUtils.isEmpty(users)){
+                System.out.println("******************为空");
+            }
+            Assert.notEmpty(users,"集合不能为空");
+        } catch (Exception e) {
+            System.out.println("*****************************"+e.getMessage());
+        }
     }
 }
