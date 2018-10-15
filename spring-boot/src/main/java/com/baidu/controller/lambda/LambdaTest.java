@@ -42,5 +42,8 @@ public class LambdaTest {
         System.out.println("****************************************");
         String names = userList.stream().filter(e -> null != e.getName()).map(User::getName).collect(joining(","));
         System.out.println(names);
+
+        Runnable hello = () -> System.out.println("hello");
+        new Thread(hello).start();
     }
 }
