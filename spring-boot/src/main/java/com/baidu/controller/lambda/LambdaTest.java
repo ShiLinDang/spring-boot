@@ -26,6 +26,7 @@ public class LambdaTest {
         userList.add(user2);
 
         List<String> ids = Arrays.asList("1", "3");
+        // 过滤需要的属性对象
         List<User> collect = userList.stream().filter(e -> null != e.getId()).filter(e -> ids.contains(e.getId())).collect(Collectors.toList());
         int size = collect.size();
         System.out.println(size);
