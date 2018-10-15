@@ -13,16 +13,19 @@ public class LambdaTest {
         User user = new User();
         user.setId("1");
         user.setName("李白");
+        user.setScore(null);
         userList.add(user);
 
         User user1 = new User();
         user1.setId("2");
         user1.setName("李慕白");
+        user1.setScore(20);
         userList.add(user1);
 
         User user2 = new User();
         user2.setId("3");
         user2.setName("老王");
+        user2.setScore(30);
         userList.add(user2);
 
         List<String> ids = Arrays.asList("1", "3");
@@ -30,5 +33,8 @@ public class LambdaTest {
         List<User> collect = userList.stream().filter(e -> null != e.getId()).filter(e -> ids.contains(e.getId())).collect(Collectors.toList());
         int size = collect.size();
         System.out.println(size);
+        System.out.println("****************************************");
+        Integer reduce = userList.stream().filter(e -> null != e.getScore()).map(User::getScore).reduce(0, Integer::sum);
+        System.out.println(reduce);
     }
 }
