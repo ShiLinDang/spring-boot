@@ -1,11 +1,14 @@
 package com.baidu.controller.lambda;
 
 import com.baidu.entity.User;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class LambdaTest {
     public static void main(String[] args) {
@@ -28,7 +31,7 @@ public class LambdaTest {
         user2.setScore(30);
         userList.add(user2);
 
-        List<String> ids = Arrays.asList("1", "3");
+        List<String> ids = Arrays.asList("1","3");
         // 过滤需要的属性对象
         List<User> collect = userList.stream().filter(e -> null != e.getId()).filter(e -> ids.contains(e.getId())).collect(Collectors.toList());
         int size = collect.size();
@@ -36,5 +39,8 @@ public class LambdaTest {
         System.out.println("****************************************");
         Integer reduce = userList.stream().filter(e -> null != e.getScore()).map(User::getScore).reduce(0, Integer::sum);
         System.out.println(reduce);
+        System.out.println("****************************************");
+        String names = userList.stream().filter(e -> null != e.getName()).map(User::getName).collect(joining(","));
+        System.out.println(names);
     }
 }
