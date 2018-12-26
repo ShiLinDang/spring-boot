@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -52,6 +54,19 @@ public class UserController {
         String nickName = userList.get(0).getNickName();
         System.out.println(nickName);
         return nickName;
+    }
+
+    @GetMapping("/login")
+    public String logIn(String name,String pwd,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(name.equals("root")&&pwd.equals("root")) {
+            User user = new User();
+            user.setName(name);
+            session.setAttribute("user",user);
+            return "登录成功";
+        } else {
+            return "用户名或密码错误!";
+        }
     }
 
     @RequestMapping(value = "getUserName",method = RequestMethod.GET)

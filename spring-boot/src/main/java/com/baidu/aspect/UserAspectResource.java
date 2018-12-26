@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,6 +18,7 @@ import java.util.Arrays;
  * @Date: 2018/12/25
  */
 @Aspect// 定义切面类
+@Order(-1)// order 的值越小，说明越先被执行
 @Component
 public class UserAspectResource {
     /**
@@ -34,15 +36,16 @@ public class UserAspectResource {
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint){
 
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-
-        //记录请求日志
-        System.out.println(("==========================================>url；"+request.getRequestURL().toString()));
-        System.out.println(("==========================================>httpMethod:"+request.getMethod()));
-        System.out.println(("==========================================>ip:"+ request.getRemoteAddr()));
-        System.out.println(("==========================================>classMethod : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName()));
-        System.out.println(("==========================================>args："+ Arrays.toString(joinPoint.getArgs())));
+        System.out.println("切入点执行**********************************");
+//        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = requestAttributes.getRequest();
+//
+//        //记录请求日志
+//        System.out.println(("==========================================>url；"+request.getRequestURL().toString()));
+//        System.out.println(("==========================================>httpMethod:"+request.getMethod()));
+//        System.out.println(("==========================================>ip:"+ request.getRemoteAddr()));
+//        System.out.println(("==========================================>classMethod : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName()));
+//        System.out.println(("==========================================>args："+ Arrays.toString(joinPoint.getArgs())));
 
     }
 

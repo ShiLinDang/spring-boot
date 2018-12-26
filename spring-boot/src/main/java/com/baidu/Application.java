@@ -1,5 +1,6 @@
 package com.baidu;
 
+import com.baidu.filter.LoginFilter;
 import com.baidu.model.PropertiesTest;
 import com.baidu.model.RunnableTask1;
 import com.baidu.service.TestService;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,7 @@ import java.util.concurrent.Executors;
 @EnableAutoConfiguration
 @EnableScheduling
 @ServletComponentScan(value= "com.baidu.listener")
+@Configuration
 public class Application {
 
 	public static void main (String[] args) {
@@ -84,5 +88,21 @@ public class Application {
 	@Bean
 	public RequestContextListener requestContextListener(){
 		return new RequestContextListener();
+	}
+
+	@Bean
+	public FilterRegistrationBean someFilterRegistration1() {
+		//新建过滤器注册类
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		// 添加我们写好的过滤器
+		registration.setFilter(loginFilter());
+		// 设置过滤器的URL模式
+		registration.addUrlPatterns("/*");
+		return registration;
+	}
+
+	@Bean
+	public LoginFilter loginFilter(){
+		return new LoginFilter();
 	}
 }
